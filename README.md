@@ -44,3 +44,10 @@ The username must not contain a colon; the password may. We split on the
 whose username contains a colon, you will get a username truncated at that
 colon and the rest will end up in the password. There is no way to detect this
 from the wire format alone.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
